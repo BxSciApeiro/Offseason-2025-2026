@@ -48,6 +48,7 @@ public class vision implements Subsystem {
             double ty = result.getTy();
             Pose targetPose = getTargetPose(robotX, robotY, tx, ty );
             ActiveOpMode.telemetry().addData("target pose", targetPose);
+            Drawing.drawObject(targetPose);
             ActiveOpMode.telemetry().addLine("reading results!");
         } else {
             ActiveOpMode.telemetry().addLine("No results seen/Not valid!");

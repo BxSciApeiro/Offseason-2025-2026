@@ -154,12 +154,10 @@ public class Drawing {
         panelsField.update();
     }
 
-    public static void drawObject(Pose pose, Style style) {
+    public static void drawObject(Pose pose) {
         if (pose == null || Double.isNaN(pose.getX()) || Double.isNaN(pose.getY()) || Double.isNaN(pose.getHeading())) {
             return;
         }
-
-        panelsField.setStyle(style);
         panelsField.moveCursor(pose.getX(), pose.getY());
         panelsField.circle(objectRadius);
     }
