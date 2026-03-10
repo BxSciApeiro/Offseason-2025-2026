@@ -11,6 +11,12 @@ import dev.nextftc.hardware.impl.ServoEx;
  */
 public class sampleSubsystem implements Subsystem {
 
+    // These are required to make it singletons. You don't really have to understand them, just make sure yyou have them!
+    public static sampleSubsystem INSTANCE = new sampleSubsystem();
+    private sampleSubsystem() {
+
+    }
+
     /**
      * Here put your motors/servos/hardware! NextFTC's wrappers are MotorEx and ServoEx, CRServoEx, FeedbackServoEx, FeedbackCRServoEx
      * In the parentheses, put the hardware map name.
