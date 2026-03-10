@@ -16,6 +16,7 @@ import com.pedropathing.util.PoseHistory; /**
  */
 public class Drawing {
     public static final double ROBOT_RADIUS = 9; // woah
+    public static final double objectRadius = 1;
     private static final FieldManager panelsField = PanelsField.INSTANCE.getField();
 
     private static final Style robotLook = new Style(
@@ -151,5 +152,15 @@ public class Drawing {
      */
     public static void sendPacket() {
         panelsField.update();
+    }
+
+    public static void drawObject(Pose pose, Style style) {
+        if (pose == null || Double.isNaN(pose.getX()) || Double.isNaN(pose.getY()) || Double.isNaN(pose.getHeading())) {
+            return;
+        }
+
+        panelsField.setStyle(style);
+        panelsField.moveCursor(pose.getX(), pose.getY());
+        panelsField.circle(objectRadius);
     }
 }
