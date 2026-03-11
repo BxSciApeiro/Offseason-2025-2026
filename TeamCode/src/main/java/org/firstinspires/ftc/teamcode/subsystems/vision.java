@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Drawing;
 import dev.nextftc.core.subsystems.Subsystem;
 import static dev.nextftc.extensions.pedro.PedroComponent.follower;
 import dev.nextftc.ftc.ActiveOpMode;
+import dev.nextftc.ftc.Gamepads;
 
 
 public class vision implements Subsystem {
@@ -24,42 +25,49 @@ public class vision implements Subsystem {
     // Test!
 
     private Limelight3A limelight;
-    private LLResult result;
-    private static double mountedHeight = 15;
-    private static double targetHeight = 15;
+    private static double mountedHeight = 7.5;
+    private static double targetHeight = 0.8;
 
     @Override
     public void initialize() {
         limelight = ActiveOpMode.hardwareMap().get(Limelight3A.class, "limelight");
-        limelight.pipelineSwitch(4);
+        limelight.pipelineSwitch(0);
         limelight.setPollRateHz(250);
         limelight.start();
+
+        Gamepads.gamepad1().a().toggleOnBecomesTrue()
+                .whenBecomesTrue(() -> limelight.pipelineSwitch(1))
+                .whenBecomesFalse(() -> limelight.pipelineSwitch(0));
     }
 
     @Override
     public void periodic() {
-        result = limelight.getLatestResult();
+        LLResult result = limelight.getLatestResult();
 
         double robotX = follower().getPose().getX();
         double robotY = follower().getPose().getY();
 
-        if(hasValidResult()) {
-            double tx = result.getTx();
-            double ty = result.getTy();
-            Pose targetPose = getTargetPose(robotX, robotY, tx, ty );
-            ActiveOpMode.telemetry().addData("target pose", targetPose);
-            Drawing.drawObject(targetPose);
-            ActiveOpMode.telemetry().addLine("reading results!");
-        } else {
-            ActiveOpMode.telemetry().addLine("No results seen/Not valid!");
+        if(result != null) {
+            double[] pythonOutputs = result.getPythonOutput();
+            if (pythonOutputs != null && pythonOutputs.length > 0) {
+                double area = pythonOutputs[5];
+                ActiveOpMode.telemetry().addData("area", area);
+            }
+//            double tx = result.getTx();
+//            double ty = result.getTy();
+//            Pose targetPose = getTargetPose(robotX, robotY, tx, ty );
+//            ActiveOpMode.telemetry().addData("target pose", targetPose);
+//            Drawing.drawObject(targetPose);
+//            ActiveOpMode.telemetry().addLine("reading results!");
+//        } else {
+//            ActiveOpMode.telemetry().addLine("No results seen/Not valid!");
+//        }
         }
+        ActiveOpMode.telemetry().addData("has valid results",result != null && result.isValid() );
+        ActiveOpMode.telemetry().addData("pipleine", limelight.getStatus().getPipelineIndex());
         ActiveOpMode.telemetry().update();
 
 
-    }
-
-    public boolean hasValidResult() {
-        return result != null && result.isValid();
     }
     public double yDistanceFromTarget(double ty) {
         double LLH = mountedHeight;
