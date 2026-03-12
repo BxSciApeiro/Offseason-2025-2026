@@ -22,8 +22,6 @@ public class vision implements Subsystem {
 
     }
 
-    // Test!
-
     private Limelight3A limelight;
     private static double mountedHeight = 7.5;
     private static double targetHeight = 1;
