@@ -26,7 +26,7 @@ public class vision implements Subsystem {
 
     private Limelight3A limelight;
     private static double mountedHeight = 7.5;
-    private static double targetHeight = 0.8;
+    private static double targetHeight = 1;
 
     @Override
     public void initialize() {
@@ -53,16 +53,19 @@ public class vision implements Subsystem {
                 double area = pythonOutputs[5];
                 ActiveOpMode.telemetry().addData("area", area);
             }
-//            double tx = result.getTx();
-//            double ty = result.getTy();
-//            Pose targetPose = getTargetPose(robotX, robotY, tx, ty );
-//            ActiveOpMode.telemetry().addData("target pose", targetPose);
-//            Drawing.drawObject(targetPose);
-//            ActiveOpMode.telemetry().addLine("reading results!");
-//        } else {
-//            ActiveOpMode.telemetry().addLine("No results seen/Not valid!");
-//        }
+            double tx = result.getTx();
+            double ty = result.getTy();
+            Pose targetPose = getTargetPose(robotX, robotY, tx, -ty );
+            ActiveOpMode.telemetry().addData("y distance", yDistanceFromTarget(-ty));
+            ActiveOpMode.telemetry().addData("x distance", xDistanceFromTarget(-ty, tx));
+            ActiveOpMode.telemetry().addData("ty ", -ty);
+            ActiveOpMode.telemetry().addData("tx", tx);
+            ActiveOpMode.telemetry().addData("target pose", targetPose);
+            ActiveOpMode.telemetry().addLine("reading results!");
+        } else {
+            ActiveOpMode.telemetry().addLine("No results seen/Not valid!");
         }
+
         ActiveOpMode.telemetry().addData("has valid results",result != null && result.isValid() );
         ActiveOpMode.telemetry().addData("pipleine", limelight.getStatus().getPipelineIndex());
         ActiveOpMode.telemetry().update();
