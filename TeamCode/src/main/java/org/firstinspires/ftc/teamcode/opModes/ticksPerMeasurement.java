@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.opModes;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.subsystems.clawLinkageGroup;
 import org.firstinspires.ftc.teamcode.subsystems.linkage;
 
 import dev.nextftc.core.commands.CommandManager;
@@ -25,11 +24,9 @@ public class ticksPerMeasurement extends NextFTCOpMode {
         );
     }
 
-    private double position;
-
     @Override
     public void onUpdate() {
-        position = linkage.INSTANCE.getPosition();
+        double position = linkage.INSTANCE.getPosition();
         telemetry.addLine("Move the slides 1 inch");
         telemetry.addData("Distance traveled (IF 1:1 CONVERSION):", position);
         telemetry.addData("Multiplier: ", getMultiplier(1, position));

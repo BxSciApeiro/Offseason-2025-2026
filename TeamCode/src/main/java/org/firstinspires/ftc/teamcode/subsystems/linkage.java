@@ -17,8 +17,8 @@ public class linkage implements Subsystem {
 
     }
 
-    private MotorEx linkage1 = new MotorEx("linkage1");
-    private MotorEx linkage2 = new MotorEx("linkage2");
+    private final MotorEx linkage1 = new MotorEx("linkage1");
+    private final MotorEx linkage2 = new MotorEx("linkage2");
     private PIDController controller2;
 
 
@@ -39,8 +39,7 @@ public class linkage implements Subsystem {
     }
 
     public void setTarget(double inches) {
-        double ticksPosition = inches*inchesPerTick;
-        target = ticksPosition;
+        target = inches*inchesPerTick;
     }
     public boolean reachedPosition() {
         return Math.abs(linkage1.getCurrentPosition() - target) <= tolerance;
