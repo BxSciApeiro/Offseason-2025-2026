@@ -30,6 +30,8 @@ public class ticksPerMeasurement extends NextFTCOpMode {
         telemetry.addLine("Move the slides 1 inch");
         telemetry.addData("Distance traveled (IF 1:1 CONVERSION):", position);
         telemetry.addData("Multiplier: ", getMultiplier(1, position));
+        telemetry.addData("This should show 1: ", getMultiplier(1, position)*position);
+        telemetry.update();
     }
 
     public double getMultiplier(double movedDistance, double ticksDistance) {
