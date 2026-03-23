@@ -29,5 +29,6 @@ public class angleFindingTeleOP extends NextFTCOpMode {
         claw.INSTANCE.setPosition(staticPosition);
         telemetry.addLine("Change the angle on Panels: staticPosition");
         telemetry.addData("angle", staticPosition);
+        telemetry.update();
     }
 }
