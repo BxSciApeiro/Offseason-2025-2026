@@ -20,7 +20,8 @@ public class claw implements Subsystem {
         claw.setPosition(openPosition);
     }
 
-
-
+    public void setPosition(double position) {
+        claw.setPosition(position);
+    }
 
 }

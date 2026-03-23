@@ -6,4 +6,5 @@ import com.bylazar.configurables.annotations.Configurable;
 public class clawConstants {
     public static double openPosition;
     public static double closePosition;
+    public static double staticPosition;
 }
