@@ -29,13 +29,13 @@ public class linkage implements Subsystem {
 
     @Override
     public void periodic() {
-        double currentPosition = linkage1.getCurrentPosition();
-        double powerNeeded = controller2.calculate(target-currentPosition);
-        linkage1.setPower(powerNeeded);
-        linkage2.setPower(-powerNeeded);
+//        double currentPosition = linkage1.getCurrentPosition();
+//        double powerNeeded = controller2.calculate(target-currentPosition);
+//        linkage1.setPower(powerNeeded);
+//        linkage2.setPower(-powerNeeded);
 
-        ActiveOpMode.telemetry().addData("position", currentPosition);
-        ActiveOpMode.telemetry().addData("power", powerNeeded);
+//        ActiveOpMode.telemetry().addData("position", currentPosition);
+//        ActiveOpMode.telemetry().addData("power", powerNeeded);
     }
 
     public void setTarget(double inches) {
@@ -47,6 +47,10 @@ public class linkage implements Subsystem {
 
     public double getPosition() {
         return linkage1.getCurrentPosition();
+    }
+
+    public void overridePosition() {
+        linkage1.atPosition(0);
     }
 
 

@@ -9,7 +9,7 @@ import dev.nextftc.ftc.Gamepads;
 
 public class clawLinkageGroup extends SubsystemGroup {
     public static clawLinkageGroup INSTANCE = new clawLinkageGroup();
-    public clawLinkageGroup() {
+    private clawLinkageGroup() {
         super(
                 claw.INSTANCE,
                 linkage.INSTANCE
@@ -32,8 +32,8 @@ public class clawLinkageGroup extends SubsystemGroup {
     }
 
     public void buttonMap() {
-        Gamepads.gamepad1().triangle()
-                .whenTrue(() -> extendAndClose(-Gamepads.gamepad1().leftStickY().get()).schedule())
-                .whenFalse(resetToDefault());
+        Gamepads.gamepad1().triangle().toggleOnBecomesTrue()
+                .whenBecomesTrue(extendAndClose(5))
+                .whenBecomesFalse(resetToDefault());
     }
 }

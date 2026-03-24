@@ -12,7 +12,7 @@ public class linkageConstants {
     public static double d;
     public static PIDCoefficients pidCof = new PIDCoefficients(p, i, d);
     public static double target;
-    public static double inchesPerTick = 0.001;
+    public static double inchesPerTick = 0.05;
     public static double tolerance = 10;
 
 }

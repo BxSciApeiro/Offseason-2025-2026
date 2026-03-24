@@ -20,7 +20,6 @@ import dev.nextftc.ftc.components.BulkReadComponent;
 public class clawAndLinkageTeleOp extends NextFTCOpMode {
     public clawAndLinkageTeleOp() {
         addComponents(
-                new PedroComponent(Constants::createFollower),
                 BindingsComponent.INSTANCE,
                 BulkReadComponent.INSTANCE,
                 CommandManager.INSTANCE,
@@ -33,8 +32,6 @@ public void onStartButtonPressed() {
 }
 @Override
 public void onUpdate() {
-    follower().update();
-    Drawing.drawDebug(follower());
     BindingManager.update();
     telemetry.addLine("please work?");
     telemetry.update();

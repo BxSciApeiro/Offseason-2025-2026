@@ -16,17 +16,22 @@ import dev.nextftc.ftc.components.BulkReadComponent;
 public class ticksPerMeasurement extends NextFTCOpMode {
     public ticksPerMeasurement() {
         addComponents(
-                new PedroComponent(Constants::createFollower),
                 BindingsComponent.INSTANCE,
                 BulkReadComponent.INSTANCE,
                 CommandManager.INSTANCE,
                 new SubsystemComponent(linkage.INSTANCE)
         );
     }
+    @Override
+    public void onStartButtonPressed() {
+        linkage.INSTANCE.overridePosition();
+    }
+
 
     @Override
     public void onUpdate() {
         double position = linkage.INSTANCE.getPosition();
+        telemetry.addData("Position", position);
         telemetry.addLine("Move the slides 1 inch");
         telemetry.addData("Distance traveled (IF 1:1 CONVERSION):", position);
         telemetry.addData("Multiplier: ", getMultiplier(1, position));
@@ -35,6 +40,6 @@ public class ticksPerMeasurement extends NextFTCOpMode {
     }
 
     public double getMultiplier(double movedDistance, double ticksDistance) {
-        return ticksDistance / movedDistance;
+        return movedDistance/ticksDistance;
     }
 }
